@@ -7,16 +7,17 @@ class Inventory():
     self.quantity = quantity
     self.price = price
 
-class InventoryManager():
-         
-  def input_inv (self):
-    inventory = [
+
+
+class InventoryManager(Inventory):
+  def __init__ (self):
+    self.inventory = [
     {'id':'764', 'name':"AD", "quantity":2, "price": 60000  },
     {'id':'74', 'name':"zinq", "quantity":3, "price": 6000  } 
     ]
-    print(tabulate(inventory, headers= "keys", tablefmt="grid"))
+    print(tabulate(self.inventory, headers= "keys", tablefmt="grid"))
 
-
+  def input_inv (self):
     while True:
       answer = input('add?')
       if answer == "yes":
@@ -33,15 +34,35 @@ class InventoryManager():
           "quantity": quantity,
           "price": price
          }
-          inventory.append(add_inventory)
-          print(tabulate(inventory, headers= "keys", tablefmt="grid"))
-
-      else: break
+          self.inventory.append(add_inventory)
+          print(tabulate(self.inventory, headers= "keys", tablefmt="grid"))
+ 
+      else: 
+        break
     
+  def input_del (self):
+    while True:
+      answer_del = input('do you want to delete an item?')
+      if answer_del == "yes":
+        delete = str(input('which id you want to delete?'))
+
+        for i in self.inventory:
+            if delete in i.values():  
+              self.inventory.remove(i) #like a list not dic
+            
+              print(tabulate(self.inventory, headers= "keys", tablefmt="grid"))
+            else:
+              print (ValueError)
+      else: 
+        break
+
 
 def main():
   energy = InventoryManager()
+ # answer3 = input('do you want to add an item?')
+  #if answer3 == "yes":
   energy.input_inv()
+  energy.input_del()
 
 if __name__ == "__main__":
   main()
