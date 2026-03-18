@@ -9,7 +9,7 @@ class Inventory():
 
 
 
-class InventoryManager(Inventory):
+class InventoryManager():
   def __init__ (self):
     self.inventory = [
     {'id':'764', 'name':"AD", "quantity":2, "price": 60000  },
@@ -46,21 +46,26 @@ class InventoryManager(Inventory):
       if answer_del == "yes":
         delete = str(input('which id you want to delete?'))
 
+        found = False
+
         for i in self.inventory:
-            if delete in i.values():  
-              self.inventory.remove(i) #like a list not dic
-            
-              print(tabulate(self.inventory, headers= "keys", tablefmt="grid"))
-            else:
-              print (ValueError)
+            if i['id'] == delete:
+              self.inventory .remove(i)
+              found = True
+              break
+
+        if found == False:
+          print('Error, id was not found')
+ #like a list not dic
+
+          print(tabulate(self.inventory, headers= "keys", tablefmt="grid"))
       else: 
         break
 
 
 def main():
   energy = InventoryManager()
- # answer3 = input('do you want to add an item?')
-  #if answer3 == "yes":
+
   energy.input_inv()
   energy.input_del()
 
